@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="https://aframe.io"></script>
+    <meta charset="utf-8">
+    <title>VR 360 Tour</title>
+    <!-- ИСПРАВЛЕНО: Подключена рабочая библиотека A-Frame -->
+    <script src="https://cloudflare.com"></script>
   </head>
   <body>
-    <a-scene>
+    <!-- ИСПРАВЛЕНО: Добавлен компонент cursor для обработки кликов контроллером/взглядом -->
+    <a-scene cursor="rayOrigin: mouse" raycaster="objects: .clickable">
+      
       <!-- Ваша первая панорама -->
       <a-sky id="panorama" src="1.jpg" rotation="0 -90 0"></a-sky>
 
-      <!-- Точка перехода на вторую панораму (сфера в пространстве) -->
-      <a-sphere position="2 1 -3" radius="0.3" color="#FF0000" 
-                onclick="document.getElementById('panorama').setAttribute('src', '1.jpg')">
+      <!-- Точка перехода на вторую панораму (класс clickable обязателен для клика) -->
+      <!-- ИСПРАВЛЕНО: Путь переключения изменен на вторую картинку (например, 2.jpg) -->
+      <a-sphere class="clickable" position="2 1 -3" radius="0.3" color="#FF0000" 
+                onclick="document.getElementById('panorama').setAttribute('src', '2.jpg')">
       </a-sphere>
 
-      <!-- Курсор-прицел для управления головой/контроллером -->
-      <a-camera><a-cursor color="yellow"></a-cursor></a-camera>
+      <!-- Курсор-прицел для управления головой (для шлемов без контроллеров) -->
+      <a-camera>
+        <a-cursor color="yellow" raycaster="objects: .clickable"></a-cursor>
+      </a-camera>
     </a-scene>
   </body>
 </html>
